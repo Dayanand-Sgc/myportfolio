@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dayanand Puranor — AI/ML Engineer</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            bg:      '#080c14',
+            surface: '#0d1424',
+            card:    '#111827',
+            border:  '#1e2d45',
+            cyan:    { DEFAULT: '#00d4ff', dim: '#00a8cc' },
+            violet:  { DEFAULT: '#7c3aed', dim: '#6d28d9' },
+            neon:    '#39ff14',
+          },
+          animation: {
+            'float':        'float 6s ease-in-out infinite',
+            'pulse-slow':   'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'gradient':     'gradientShift 8s ease infinite',
+            'fade-up':      'fadeUp 0.6s ease forwards',
+            'blink':        'blink 1s step-end infinite',
+          },
+          keyframes: {
+            float: {
+              '0%,100%': { transform: 'translateY(0px)' },
+              '50%':     { transform: 'translateY(-14px)' },
+            },
+            gradientShift: {
+              '0%,100%': { backgroundPosition: '0% 50%' },
+              '50%':     { backgroundPosition: '100% 50%' },
+            },
+            fadeUp: {
+              from: { opacity: '0', transform: 'translateY(30px)' },
+              to:   { opacity: '1', transform: 'translateY(0)' },
+            },
+            blink: {
+              '0%,100%': { opacity: '1' },
+              '50%':     { opacity: '0' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ── */
+    * { box-sizing: border-box; }
+    html { background-color: #080c14; }
+    body { font-family: 'Inter', sans-serif; background-color: #080c14; color: #e2e8f0; overflow-x: hidden; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #080c14; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(#00d4ff, #7c3aed); border-radius: 4px; }
+
+    /* ── Gradient text ── */
+    .gradient-text {
+      background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 50%, #39ff14 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    /* ── Glassmorphism card ── */
+    .glass {
+      background: rgba(17, 24, 39, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 212, 255, 0.12);
+      border-radius: 16px;
+    }
+    .glass:hover {
+      border-color: rgba(0, 212, 255, 0.35);
+      box-shadow: 0 0 24px rgba(0, 212, 255, 0.08), 0 0 60px rgba(124, 58, 237, 0.06);
+      transform: translateY(-4px);
+      transition: all 0.35s ease;
+    }
+
+    /* ── Neon glow button ── */
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #7c3aed, #00d4ff);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover { box-shadow: 0 0 30px rgba(0, 212, 255, 0.45); transform: scale(1.04); }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .btn-outline {
+      border: 1.5px solid rgba(0, 212, 255, 0.5);
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .btn-outline:hover {
+      border-color: #00d4ff;
+      background: rgba(0, 212, 255, 0.07);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+      transform: scale(1.04);
+    }
+
+    /* ── Skill badge ── */
+    .skill-badge {
+      background: rgba(0, 212, 255, 0.06);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 50px;
+      transition: all 0.25s ease;
+    }
+    .skill-badge:hover {
+      background: rgba(0, 212, 255, 0.14);
+      border-color: #00d4ff;
+      box-shadow: 0 0 14px rgba(0, 212, 255, 0.25);
+      transform: scale(1.06);
+    }
+
+    /* ── Nav blur ── */
+    .nav-glass {
+      background: rgba(8, 12, 20, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 212, 255, 0.08);
+    }
+
+    /* ── Particle canvas ── */
+    #particle-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Scroll-reveal ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Timeline ── */
+    .timeline-dot {
+      width: 14px; height: 14px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+      flex-shrink: 0;
+    }
+
+    /* ── Project card ── */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00d4ff, #7c3aed, #39ff14);
+      background-size: 200% 100%;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: #00d4ff;
+      text-transform: uppercase;
+    }
+
+    /* ── Hamburger ── */
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: #00d4ff; border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+    /* ── Contact input ── */
+    .contact-input {
+      background: rgba(17, 24, 39, 0.7);
+      border: 1px solid rgba(0, 212, 255, 0.18);
+      border-radius: 10px;
+      color: #e2e8f0;
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      outline: none;
+    }
+    .contact-input:focus {
+      border-color: #00d4ff;
+      box-shadow: 0 0 12px rgba(0, 212, 255, 0.18);
+    }
+    .contact-input::placeholder { color: #4b5563; }
+
+    /* ── Cert badge ── */
+    .cert-card {
+      background: rgba(17, 24, 39, 0.6);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    .cert-card:hover {
+      border-color: rgba(124, 58, 237, 0.6);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+      transform: translateY(-3px);
+    }
+
+    /* ── Typewriter cursor ── */
+    .cursor::after { content: '|'; animation: blink 1s step-end infinite; color: #00d4ff; }
+
+    /* ── Progress bar ── */
+    .skill-bar { background: rgba(0,212,255,0.08); border-radius: 50px; overflow: hidden; height: 6px; }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00d4ff, #7c3aed);
+      border-radius: 50px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Social icon ── */
+    .social-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0,212,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s;
+      color: #94a3b8;
+    }
+    .social-icon:hover {
+      border-color: #00d4ff;
+      color: #00d4ff;
+      box-shadow: 0 0 14px rgba(0,212,255,0.3);
+      transform: scale(1.1);
+    }
+
+    /* ── Active nav link ── */
+    .nav-link { position: relative; color: #94a3b8; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: #00d4ff; transition: width 0.3s; }
+    .nav-link:hover, .nav-link.active { color: #00d4ff; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+      padding: 14px 22px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(124,58,237,0.15));
+      border: 1px solid rgba(0,212,255,0.4);
+      backdrop-filter: blur(12px);
+      color: #e2e8f0; font-size: 0.9rem;
+      transform: translateX(200%); transition: transform 0.4s ease;
+    }
+    #toast.show { transform: translateX(0); }
+  </style>
+</head>
+
+<body>
+
+<!-- ─────────────────────────── PARTICLE CANVAS ──────────────────────────── -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- ─────────────────────────── NAVIGATION ───────────────────────────────── -->
+<nav id="navbar" class="nav-glass fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
+
+    <!-- Logo -->
+    <a href="#hero" class="flex items-center gap-2">
+      <span class="font-mono text-lg font-bold gradient-text">DP</span>
+      <span class="text-xs font-mono text-slate-500 hidden sm:inline">// ai_ml_engineer</span>
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="hidden md:flex items-center gap-8">
+      <li><a href="#about"    class="nav-link">About</a></li>
+      <li><a href="#skills"   class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#education"class="nav-link">Education</a></li>
+      <li><a href="#certs"    class="nav-link">Certifications</a></li>
+      <li><a href="#contact"  class="nav-link">Contact</a></li>
+    </ul>
+
+    <!-- Hire Me CTA -->
+    <a href="mailto:puranordayanand@gmail.com" class="hidden md:inline-flex btn-primary px-5 py-2 text-sm text-white">
+      <span>Hire Me</span>
+    </a>
+
+    <!-- Hamburger -->
+    <button id="hamburger" class="hamburger md:hidden flex flex-col gap-1.5 p-2 focus:outline-none">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden flex-col gap-1 px-6 pb-5 pt-2">
+    <a href="#about"     class="mobile-link block py-2.5 text-slate-300 hover:text-cyan-400 text-sm font-medium border-b border-slate-800/60">About</a>
+    <a href="#skills"    class="mobile-link block py-2.5 text-slate-300 hover:text-cyan-400 text-sm font-medium border-b border-slate-800/60">Skills</a>
+    <a href="#projects"  class="mobile-link block py-2.5 text-slate-300 hover:text-cyan-400 text-sm font-medium border-b border-slate-800/60">Projects</a>
+    <a href="#education" class="mobile-link block py-2.5 text-slate-300 hover:text-cyan-400 text-sm font-medium border-b border-slate-800/60">Education</a>
+    <a href="#certs"     class="mobile-link block py-2.5 text-slate-300 hover:text-cyan-400 text-sm font-medium border-b border-slate-800/60">Certifications</a>
+    <a href="#contact"   class="mobile-link block py-2.5 text-slate-300 hover:text-cyan-400 text-sm font-medium">Contact</a>
+  </div>
+</nav>
+
+<!-- ─────────────────────────── HERO SECTION ─────────────────────────────── -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center pt-16 px-6 overflow-hidden">
+
+  <!-- Background glow blobs -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay:2s"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-neon/3 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Grid pattern overlay -->
+  <div class="absolute inset-0 opacity-[0.02]" style="background-image:linear-gradient(rgba(0,212,255,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.4) 1px,transparent 1px);background-size:60px 60px;"></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto text-center">
+
+    <!-- Status badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/25 bg-cyan-500/5 text-xs font-mono text-cyan-400 mb-8 animate-float">
+      <span class="w-2 h-2 rounded-full bg-neon animate-pulse-slow inline-block"></span>
+      Available for Internships &amp; Collaborations
+    </div>
+
+    <!-- Name -->
+    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-4">
+      <span class="gradient-text">Dayanand</span><br/>
+      <span class="text-white">Puranor</span>
+    </h1>
+
+    <!-- Animated title -->
+    <div class="h-12 flex items-center justify-center mb-6">
+      <p class="font-mono text-lg sm:text-2xl text-cyan-400 cursor" id="typewriter"></p>
+    </div>
+
+    <!-- Location & contact strip -->
+    <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-400 mb-10">
+      <span class="flex items-center gap-1.5">
+        <i class="ph ph-map-pin text-cyan-400"></i> Bengaluru, 560091, India
+      </span>
+      <span class="text-slate-700">|</span>
+      <a href="tel:9448863978" class="flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
+        <i class="ph ph-phone text-cyan-400"></i> +91 9448863978
+      </a>
+      <span class="text-slate-700">|</span>
+      <a href="mailto:heyg86619@gmail.com" class="flex items-center gap-1.5 hover:text-cyan-400 transition-colors">
+        <i class="ph ph-envelope text-cyan-400"></i> heyg86619@gmail.com
+      </a>
+    </div>
+
+    <!-- Bio -->
+    <p class="max-w-2xl mx-auto text-slate-400 text-base sm:text-lg leading-relaxed mb-12">
+      Third-year B.E. student specialising in <span class="text-cyan-400 font-medium">Artificial Intelligence &amp; Machine Learning</span>,
+      with a passion for Generative AI, deep learning, and practical ML applications.
+      Eager to build impactful solutions and push the boundaries of intelligent systems.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href="#projects" class="btn-primary px-8 py-3.5 text-white text-sm inline-flex items-center gap-2">
+        <span><i class="ph ph-code-block"></i> Explore Projects</span>
+      </a>
+      <a href="#contact" class="btn-outline px-8 py-3.5 text-cyan-400 text-sm inline-flex items-center gap-2">
+        <i class="ph ph-chat-circle-dots"></i> Get in Touch
+      </a>
+      <a href="#" id="download-resume" class="btn-outline px-8 py-3.5 text-slate-300 text-sm inline-flex items-center gap-2" onclick="showToast('Resume download coming soon! 📄'); return false;">
+        <i class="ph ph-download-simple"></i> Download Resume
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-600 text-xs animate-float">
+      <span class="font-mono">scroll</span>
+      <i class="ph ph-caret-double-down text-cyan-500/50 text-lg"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── ABOUT SECTION ─────────────────────────────── -->
+<section id="about" class="py-24 px-6 relative">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-3">01 / About Me</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">Who I Am</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+      <!-- Avatar / Visual -->
+      <div class="flex justify-center reveal">
+        <div class="relative">
+          <!-- Outer glow ring -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/30 to-violet-600/30 blur-2xl scale-110 animate-pulse-slow"></div>
+          <!-- Avatar placeholder -->
+          <div class="relative w-64 h-64 rounded-full glass flex flex-col items-center justify-center border border-cyan-500/30 overflow-hidden">
+            <div class="text-7xl mb-2">👨‍💻</div>
+            <p class="font-mono text-xs text-cyan-400">AI / ML Engineer</p>
+          </div>
+          <!-- Floating tech badges -->
+          <div class="absolute -top-4 -right-4 glass px-3 py-1.5 text-xs font-mono text-cyan-400 animate-float" style="animation-delay:0.5s">
+            &lt;GenerativeAI /&gt;
+          </div>
+          <div class="absolute -bottom-4 -left-4 glass px-3 py-1.5 text-xs font-mono text-violet-400 animate-float" style="animation-delay:1.2s">
+            DeepLearning()
+          </div>
+        </div>
+      </div>
+
+      <!-- Text content -->
+      <div class="reveal space-y-5">
+        <h3 class="text-2xl font-bold text-white">AI/ML Engineering Student &amp; Builder</h3>
+        <p class="text-slate-400 leading-relaxed">
+          I'm a <span class="text-white font-medium">third-year B.E. student</span> at
+          <span class="text-cyan-400 font-medium">Dr. Ambedkar Institute of Technology, Bengaluru</span>,
+          specialising in Artificial Intelligence and Machine Learning. My academic journey has given me
+          a strong foundation in data structures, algorithms, and core ML principles.
+        </p>
+        <p class="text-slate-400 leading-relaxed">
+          I've built real-world concept systems including a <span class="text-white font-medium">RAG Knowledge Assistant</span>,
+          a <span class="text-white font-medium">Computer Vision Attendance Tracker</span>, and a
+          <span class="text-white font-medium">Predictive Maintenance Pipeline</span>. These projects reflect
+          my ability to combine NumPy-based data processing, deep learning architectures, and practical
+          engineering skills to create intelligent systems.
+        </p>
+        <p class="text-slate-400 leading-relaxed">
+          Beyond code, I enjoy playing chess, learning new languages and frameworks, and exploring
+          the frontier of Generative AI research.
+        </p>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-3 gap-4 pt-4">
+          <div class="glass p-4 text-center rounded-xl">
+            <div class="text-2xl font-black gradient-text">3+</div>
+            <div class="text-xs text-slate-500 mt-1">Projects</div>
+          </div>
+          <div class="glass p-4 text-center rounded-xl">
+            <div class="text-2xl font-black gradient-text">2</div>
+            <div class="text-xs text-slate-500 mt-1">Certifications</div>
+          </div>
+          <div class="glass p-4 text-center rounded-xl">
+            <div class="text-2xl font-black gradient-text">4</div>
+            <div class="text-xs text-slate-500 mt-1">Languages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── SKILLS SECTION ───────────────────────────── -->
+<section id="skills" class="py-24 px-6 relative">
+  <!-- Subtle separator -->
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-3">02 / Skills</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">Technical Arsenal</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- AI / ML -->
+      <div class="glass p-8 reveal">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center">
+            <i class="ph ph-robot text-cyan-400 text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">AI / ML</h3>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">Artificial Intelligence &amp; ML</span><span class="text-cyan-400 font-mono">80%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">Generative AI</span><span class="text-cyan-400 font-mono">72%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">Deep Learning</span><span class="text-cyan-400 font-mono">68%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="68"></div></div>
+          </div>
+        </div>
+        <!-- Badges -->
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="skill-badge px-3 py-1 text-xs text-cyan-400">🤖 AI/ML</span>
+          <span class="skill-badge px-3 py-1 text-xs text-cyan-400">✨ GenAI</span>
+          <span class="skill-badge px-3 py-1 text-xs text-cyan-400">🧠 Deep Learning</span>
+        </div>
+      </div>
+
+      <!-- Programming -->
+      <div class="glass p-8 reveal">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-lg bg-violet-500/10 border border-violet-500/25 flex items-center justify-center">
+            <i class="ph ph-code text-violet-400 text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Programming</h3>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">Python</span><span class="text-violet-400 font-mono">85%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="85" style="background:linear-gradient(90deg,#7c3aed,#00d4ff)"></div></div>
+          </div>
+        </div>
+        <!-- Badges -->
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="skill-badge px-3 py-1 text-xs text-violet-400" style="background:rgba(124,58,237,0.06);border-color:rgba(124,58,237,0.2)">🐍 Python</span>
+        </div>
+        <!-- Fun decoration -->
+        <div class="mt-6 font-mono text-xs text-slate-600 leading-relaxed">
+          <div><span class="text-violet-400">def</span> <span class="text-cyan-400">solve</span>(problem):</div>
+          <div>&nbsp;&nbsp;<span class="text-green-400">return</span> ai_magic(problem)</div>
+        </div>
+      </div>
+
+      <!-- Libraries & Foundations -->
+      <div class="glass p-8 reveal">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-lg bg-green-500/10 border border-green-500/25 flex items-center justify-center">
+            <i class="ph ph-stack text-green-400 text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Libraries &amp; Foundations</h3>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">NumPy</span><span class="text-green-400 font-mono">78%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="78" style="background:linear-gradient(90deg,#22c55e,#00d4ff)"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-1.5"><span class="text-slate-300">Data Structures &amp; Algorithms</span><span class="text-green-400 font-mono">75%</span></div>
+            <div class="skill-bar"><div class="skill-fill" data-width="75" style="background:linear-gradient(90deg,#22c55e,#00d4ff)"></div></div>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-6">
+          <span class="skill-badge px-3 py-1 text-xs text-green-400" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2)">📐 NumPy</span>
+          <span class="skill-badge px-3 py-1 text-xs text-green-400" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2)">🌲 DSA</span>
+          <span class="skill-badge px-3 py-1 text-xs text-green-400" style="background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2)">👁️ Computer Vision</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- All skills cloud -->
+    <div class="mt-12 glass p-8 reveal">
+      <p class="text-center text-sm text-slate-500 font-mono mb-6">// full skill set</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <span class="skill-badge px-4 py-2 text-sm text-cyan-400">Artificial Intelligence</span>
+        <span class="skill-badge px-4 py-2 text-sm text-cyan-400">Machine Learning</span>
+        <span class="skill-badge px-4 py-2 text-sm text-violet-400" style="border-color:rgba(124,58,237,0.2)">Generative AI</span>
+        <span class="skill-badge px-4 py-2 text-sm text-violet-400" style="border-color:rgba(124,58,237,0.2)">Deep Learning</span>
+        <span class="skill-badge px-4 py-2 text-sm text-green-400" style="border-color:rgba(34,197,94,0.2)">Python</span>
+        <span class="skill-badge px-4 py-2 text-sm text-green-400" style="border-color:rgba(34,197,94,0.2)">NumPy</span>
+        <span class="skill-badge px-4 py-2 text-sm text-orange-400" style="border-color:rgba(251,146,60,0.2)">Data Structures</span>
+        <span class="skill-badge px-4 py-2 text-sm text-orange-400" style="border-color:rgba(251,146,60,0.2)">Algorithms</span>
+        <span class="skill-badge px-4 py-2 text-sm text-pink-400" style="border-color:rgba(244,114,182,0.2)">Computer Vision</span>
+        <span class="skill-badge px-4 py-2 text-sm text-pink-400" style="border-color:rgba(244,114,182,0.2)">RAG / LLMs</span>
+        <span class="skill-badge px-4 py-2 text-sm text-yellow-400" style="border-color:rgba(234,179,8,0.2)">Vector Embeddings</span>
+        <span class="skill-badge px-4 py-2 text-sm text-yellow-400" style="border-color:rgba(234,179,8,0.2)">Predictive Analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── PROJECTS SECTION ─────────────────────────── -->
+<section id="projects" class="py-24 px-6 relative">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-3">03 / Projects</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">What I've Built</h2>
+      <p class="text-slate-500 mt-4 max-w-lg mx-auto text-sm">Concept implementations and practical ML pipelines exploring the frontier of AI</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Project 1: RAG -->
+      <div class="glass project-card p-8 reveal flex flex-col gap-5 group">
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            🧠
+          </div>
+          <span class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20">GenAI · LLM</span>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold text-white mb-2">Context-Aware RAG Knowledge Assistant</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            A document Q&amp;A system where users upload PDFs and ask questions in natural language.
+            Uses <span class="text-cyan-400">semantic search</span> and <span class="text-cyan-400">vector embeddings</span>
+            to ground LLM responses in source documents and reduce hallucinations.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-auto">
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Python</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">RAG</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Vector DB</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">LLM</span>
+        </div>
+
+        <div class="flex gap-3 pt-2 border-t border-slate-800/60">
+          <a href="#" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors" onclick="showToast('GitHub link coming soon!'); return false;">
+            <i class="ph ph-github-logo"></i> Code
+          </a>
+          <a href="#" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition-colors" onclick="showToast('Demo coming soon!'); return false;">
+            <i class="ph ph-arrow-square-out"></i> Demo
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 2: CV Attendance -->
+      <div class="glass project-card p-8 reveal flex flex-col gap-5 group">
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            👁️
+          </div>
+          <span class="text-xs font-mono text-violet-400 bg-violet-500/10 px-2.5 py-1 rounded-full border border-violet-500/20">CV · Real-time</span>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold text-white mb-2">Computer Vision-Based Attendance Tracker</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Real-time <span class="text-violet-400">face detection &amp; recognition</span> from live video feeds with
+            a location-verified web interface. Automates attendance logging with high accuracy and minimal overhead.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-auto">
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Python</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">OpenCV</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Face Recognition</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Web</span>
+        </div>
+
+        <div class="flex gap-3 pt-2 border-t border-slate-800/60">
+          <a href="#" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-violet-400 transition-colors" onclick="showToast('GitHub link coming soon!'); return false;">
+            <i class="ph ph-github-logo"></i> Code
+          </a>
+          <a href="#" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-violet-400 transition-colors" onclick="showToast('Demo coming soon!'); return false;">
+            <i class="ph ph-arrow-square-out"></i> Demo
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 3: Predictive Maintenance -->
+      <div class="glass project-card p-8 reveal flex flex-col gap-5 group">
+        <div class="flex items-start justify-between">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            ⚙️
+          </div>
+          <span class="text-xs font-mono text-orange-400 bg-orange-500/10 px-2.5 py-1 rounded-full border border-orange-500/20">ML · Pipeline</span>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-bold text-white mb-2">Predictive Maintenance &amp; Failure Analysis Pipeline</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            End-to-end <span class="text-orange-400">ML pipeline</span> predicting industrial equipment failures
+            from historical sensor logs and telemetry data — enabling proactive maintenance and minimising downtime.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-auto">
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Python</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">NumPy</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">Sensor Data</span>
+          <span class="text-xs bg-slate-800/80 text-slate-400 px-2.5 py-1 rounded-full border border-slate-700/50">ML Pipeline</span>
+        </div>
+
+        <div class="flex gap-3 pt-2 border-t border-slate-800/60">
+          <a href="#" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-orange-400 transition-colors" onclick="showToast('GitHub link coming soon!'); return false;">
+            <i class="ph ph-github-logo"></i> Code
+          </a>
+          <a href="#" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-orange-400 transition-colors" onclick="showToast('Demo coming soon!'); return false;">
+            <i class="ph ph-arrow-square-out"></i> Demo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── EDUCATION SECTION ────────────────────────── -->
+<section id="education" class="py-24 px-6 relative">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-3">04 / Education</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">Academic Journey</h2>
+    </div>
+
+    <div class="reveal">
+      <div class="glass p-8 lg:p-10 relative overflow-hidden">
+        <!-- Top accent bar -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-violet-600 to-neon rounded-t-2xl"></div>
+
+        <div class="flex flex-col sm:flex-row gap-6 items-start">
+          <!-- Icon -->
+          <div class="flex-shrink-0 w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-3xl">
+            🎓
+          </div>
+
+          <!-- Info -->
+          <div class="flex-1">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-white">Bachelor of Engineering</h3>
+                <p class="text-cyan-400 font-medium mt-0.5">Artificial Intelligence &amp; Machine Learning</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700/50 whitespace-nowrap">
+                <i class="ph ph-calendar text-cyan-400"></i> Sep 2024 – Sep 2028
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 text-slate-300 mb-6">
+              <i class="ph ph-buildings text-cyan-400"></i>
+              <span class="font-medium">Dr. Ambedkar Institute of Technology</span>
+              <span class="text-slate-600">·</span>
+              <span class="text-slate-400 text-sm">Bengaluru, India</span>
+            </div>
+
+            <!-- Timeline of milestones -->
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <div class="timeline-dot"></div>
+                <p class="text-sm text-slate-400">Currently in 3rd year — specialising in AI/ML core subjects</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="timeline-dot" style="background:linear-gradient(135deg,#7c3aed,#00d4ff)"></div>
+                <p class="text-sm text-slate-400">Oracle Cloud AI Foundations Associate certification earned</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="timeline-dot" style="background:linear-gradient(135deg,#22c55e,#00d4ff)"></div>
+                <p class="text-sm text-slate-400">Google AI Essentials certification completed</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="timeline-dot" style="background:linear-gradient(135deg,#f97316,#7c3aed)"></div>
+                <p class="text-sm text-slate-400">Built 3 ML/AI concept projects as part of self-learning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── CERTIFICATIONS SECTION ───────────────────── -->
+<section id="certs" class="py-24 px-6 relative">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent"></div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-3">05 / Certifications</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">Credentials</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+
+      <!-- Cert 1: Oracle -->
+      <div class="cert-card p-6 reveal">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-2xl flex-shrink-0">
+            ☁️
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base mb-1">Oracle Cloud Infrastructure</h3>
+            <p class="text-sm text-slate-400 mb-3">Certified AI Foundations Associate</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1 text-xs font-medium text-red-400 bg-red-500/10 px-2.5 py-1 rounded-full border border-red-500/20">
+                <i class="ph ph-seal-check"></i> Oracle
+              </span>
+              <span class="text-xs text-slate-500 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700/40">
+                Jun 2026 – Jul 2026
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cert 2: Google -->
+      <div class="cert-card p-6 reveal" style="border-color:rgba(0,212,255,0.2)">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-2xl flex-shrink-0">
+            🌐
+          </div>
+          <div>
+            <h3 class="font-bold text-white text-base mb-1">Google AI Essentials</h3>
+            <p class="text-sm text-slate-400 mb-3">Foundational AI skills &amp; responsible AI practices</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1 text-xs font-medium text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20">
+                <i class="ph ph-seal-check"></i> Google
+              </span>
+              <span class="text-xs text-slate-500 bg-slate-800/60 px-2.5 py-1 rounded-full border border-slate-700/40">
+                May 2025 – Jul 2026
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Languages & Interests -->
+    <div class="mt-10 glass p-8 reveal">
+      <div class="grid sm:grid-cols-2 gap-8">
+        <!-- Languages -->
+        <div>
+          <h3 class="flex items-center gap-2 font-bold text-white mb-4">
+            <i class="ph ph-translate text-cyan-400"></i> Languages
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge px-3 py-1.5 text-sm text-slate-300">🇮🇳 Kannada</span>
+            <span class="skill-badge px-3 py-1.5 text-sm text-slate-300">🇬🇧 English</span>
+            <span class="skill-badge px-3 py-1.5 text-sm text-slate-300">🇮🇳 Hindi</span>
+            <span class="skill-badge px-3 py-1.5 text-sm text-slate-300">🇮🇳 Tamil</span>
+          </div>
+        </div>
+        <!-- Interests -->
+        <div>
+          <h3 class="flex items-center gap-2 font-bold text-white mb-4">
+            <i class="ph ph-heart text-violet-400"></i> Interests
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge px-3 py-1.5 text-sm text-slate-300" style="border-color:rgba(124,58,237,0.2)">📚 Learning New Skills</span>
+            <span class="skill-badge px-3 py-1.5 text-sm text-slate-300" style="border-color:rgba(124,58,237,0.2)">♟️ Chess</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── CONTACT SECTION ──────────────────────────── -->
+<section id="contact" class="py-24 px-6 relative">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"></div>
+
+  <!-- Background glow -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-violet-600/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    <div class="text-center mb-16 reveal">
+      <p class="section-label mb-3">06 / Contact</p>
+      <h2 class="text-4xl sm:text-5xl font-bold text-white">Let's Connect</h2>
+      <p class="text-slate-500 mt-4 max-w-md mx-auto text-sm">
+        Open to internships, collaborations, and interesting AI/ML projects.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+
+      <!-- Contact Info -->
+      <div class="reveal space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-white mb-6">Get in Touch</h3>
+
+          <div class="space-y-4">
+            <a href="mailto:puranordayanand@gmail.com" class="flex items-center gap-4 glass p-4 rounded-xl group hover:border-cyan-500/40 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i class="ph ph-envelope text-cyan-400 text-xl"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 mb-0.5">Email (Primary)</p>
+                <p class="text-sm text-slate-300 group-hover:text-cyan-400 transition-colors font-medium">puranordayanand@gmail.com</p>
+              </div>
+            </a>
+
+            <a href="mailto:heyg86619@gmail.com" class="flex items-center gap-4 glass p-4 rounded-xl group hover:border-cyan-500/40 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i class="ph ph-envelope-simple text-cyan-400 text-xl"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 mb-0.5">Email (Alt)</p>
+                <p class="text-sm text-slate-300 group-hover:text-cyan-400 transition-colors font-medium">heyg86619@gmail.com</p>
+              </div>
+            </a>
+
+            <a href="tel:9448863978" class="flex items-center gap-4 glass p-4 rounded-xl group hover:border-cyan-500/40 transition-all">
+              <div class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i class="ph ph-phone text-violet-400 text-xl"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 mb-0.5">Phone</p>
+                <p class="text-sm text-slate-300 group-hover:text-violet-400 transition-colors font-medium">+91 9448863978</p>
+              </div>
+            </a>
+
+            <div class="flex items-center gap-4 glass p-4 rounded-xl">
+              <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+                <i class="ph ph-map-pin text-green-400 text-xl"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 mb-0.5">Location</p>
+                <p class="text-sm text-slate-300 font-medium">Bengaluru, 560091, India</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div>
+          <p class="text-sm text-slate-500 font-mono mb-4">// find me online</p>
+          <div class="flex gap-3">
+            <a href="#" class="social-icon" title="GitHub" onclick="showToast('GitHub profile coming soon!'); return false;">
+              <i class="ph ph-github-logo text-xl"></i>
+            </a>
+            <a href="#" class="social-icon" title="LinkedIn" onclick="showToast('LinkedIn profile coming soon!'); return false;">
+              <i class="ph ph-linkedin-logo text-xl"></i>
+            </a>
+            <a href="#" class="social-icon" title="Twitter/X" onclick="showToast('X/Twitter coming soon!'); return false;">
+              <i class="ph ph-x-logo text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="reveal">
+        <form id="contact-form" class="glass p-8 space-y-5" onsubmit="handleFormSubmit(event)">
+          <h3 class="text-lg font-bold text-white mb-2">Send a Message</h3>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-2 font-mono">// your name</label>
+            <input type="text" id="form-name" placeholder="Jane Smith" class="contact-input" required />
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-2 font-mono">// your email</label>
+            <input type="email" id="form-email" placeholder="jane@example.com" class="contact-input" required />
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-400 mb-2 font-mono">// message</label>
+            <textarea id="form-message" rows="5" placeholder="Hey Dayanand, I'd love to discuss..." class="contact-input resize-none" required></textarea>
+          </div>
+
+          <button type="submit" id="form-btn" class="btn-primary w-full py-3.5 text-white text-sm font-semibold flex items-center justify-center gap-2">
+            <span id="form-btn-text"><i class="ph ph-paper-plane-tilt"></i> Send Message</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── FOOTER ───────────────────────────────────── -->
+<footer class="border-t border-slate-800/60 py-10 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+
+      <div class="flex items-center gap-3">
+        <span class="font-mono text-lg font-bold gradient-text">DP</span>
+        <span class="text-slate-600 text-sm">Dayanand Puranor · AI/ML Engineer</span>
+      </div>
+
+      <p class="text-slate-600 text-xs font-mono">
+        Built with <span class="text-cyan-500">HTML · Tailwind · JS</span> · Bengaluru, India
+      </p>
+
+      <div class="flex gap-3">
+        <a href="#" class="social-icon w-9 h-9" onclick="showToast('GitHub coming soon!'); return false;">
+          <i class="ph ph-github-logo text-base"></i>
+        </a>
+        <a href="#" class="social-icon w-9 h-9" onclick="showToast('LinkedIn coming soon!'); return false;">
+          <i class="ph ph-linkedin-logo text-base"></i>
+        </a>
+        <a href="mailto:puranordayanand@gmail.com" class="social-icon w-9 h-9">
+          <i class="ph ph-envelope text-base"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-6">
+      <p class="text-slate-700 text-xs font-mono">© 2026 Dayanand Puranor. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─────────────────────────── TOAST ────────────────────────────────────── -->
+<div id="toast"></div>
+
+<!-- ─────────────────────────── BACK TO TOP ──────────────────────────────── -->
+<button id="back-to-top" class="fixed bottom-8 right-6 w-11 h-11 rounded-full btn-primary text-white flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 z-40" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="ph ph-caret-up text-lg"></i>
+</button>
+
+<!-- ═══════════════════════════ JAVASCRIPT ════════════════════════════════ -->
+<script>
+/* ── Particles ── */
+(function () {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  const COUNT = 60;
+  const COLORS = ['rgba(0,212,255,', 'rgba(124,58,237,', 'rgba(57,255,20,'];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function Particle() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.r = Math.random() * 1.8 + 0.4;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.alpha = Math.random() * 0.5 + 0.1;
+    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+  }
+
+  for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color + p.alpha + ')';
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── Typewriter ── */
+(function () {
+  const el = document.getElementById('typewriter');
+  const phrases = [
+    'AI/ML Engineer',
+    'B.E. Student @ Dr. AIT',
+    'Generative AI Enthusiast',
+    'Deep Learning Explorer',
+    'Python Developer',
+  ];
+  let i = 0, j = 0, deleting = false;
+  function type() {
+    const phrase = phrases[i % phrases.length];
+    if (!deleting) {
+      el.textContent = phrase.slice(0, ++j);
+      if (j === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      el.textContent = phrase.slice(0, --j);
+      if (j === 0) { deleting = false; i++; }
+    }
+    setTimeout(type, deleting ? 55 : 90);
+  }
+  type();
+})();
+
+/* ── Scroll Reveal ── */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ── Skill Bar Animate ── */
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-fill').forEach(fill => {
+        fill.style.width = fill.dataset.width + '%';
+      });
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.glass').forEach(el => barObserver.observe(el));
+
+/* ── Active Nav ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ── Navbar scroll ── */
+window.addEventListener('scroll', () => {
+  const nb = document.getElementById('navbar');
+  if (window.scrollY > 20) nb.classList.add('shadow-lg');
+  else nb.classList.remove('shadow-lg');
+  // Back to top
+  const btn = document.getElementById('back-to-top');
+  if (window.scrollY > 400) {
+    btn.style.opacity = '1'; btn.style.pointerEvents = 'auto';
+  } else {
+    btn.style.opacity = '0'; btn.style.pointerEvents = 'none';
+  }
+});
+
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('hidden');
+  mobileMenu.classList.toggle('flex');
+});
+document.querySelectorAll('.mobile-link').forEach(l => {
+  l.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.add('hidden');
+    mobileMenu.classList.remove('flex');
+  });
+});
+
+/* ── Toast ── */
+let toastTimeout;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ── Contact Form ── */
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('form-btn');
+  const btnText = document.getElementById('form-btn-text');
+  const name = document.getElementById('form-name').value;
+  const email = document.getElementById('form-email').value;
+  const message = document.getElementById('form-message').value;
+
+  btnText.innerHTML = '<svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4" stroke-dashoffset="10"></circle></svg> Sending...';
+  btn.disabled = true;
+
+  // Simulate send (replace with real API call)
+  setTimeout(() => {
+    const mailto = `mailto:puranordayanand@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent('From: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
+    window.location.href = mailto;
+    btnText.innerHTML = '<i class="ph ph-check-circle"></i> Message Sent!';
+    btn.style.background = 'linear-gradient(135deg, #22c55e, #00d4ff)';
+    showToast('✅ Opening your email client...');
+    document.getElementById('contact-form').reset();
+    setTimeout(() => {
+      btnText.innerHTML = '<i class="ph ph-paper-plane-tilt"></i> Send Message';
+      btn.disabled = false;
+      btn.style.background = '';
+    }, 3000);
+  }, 1200);
+}
+
+/* ── Smooth scroll for anchor links ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function (e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
+
